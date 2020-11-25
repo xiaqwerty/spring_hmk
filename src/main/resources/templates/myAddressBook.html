@@ -2,107 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>MY通讯录</title>
-    <script src="/js/myJS.js"></script>
-    <style>
-        body
-        {
-            font-family:"华文细黑";
-            background:url("https://ss3.bdstatic.com/lPoZeXSm1A5BphGlnYG/skin/66.jpg") no-repeat;
-            background-size: 100%;
-        }
-        input
-        {
-            position:absolute;
-            padding-left:100px;
-            padding-right:100px;
-            background-color:rgb(30, 144, 255);
-        }
-        a
-        {
-            position:absolute;
-            padding-left:100px;
-            padding-right:100px;
-            background-color:rgb(30, 144, 255);
-        }
-        #myTable
-        {
-            border-collapse: collapse;
-            width:80%;
-            margin:10px auto;
-        }
+    <title>TodoList</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 
-        #myTable td,#myTable th
-        {
-            font-size:1em;
-            width:50%;
-            border: 1px solid black;
-            padding:10px;
-        }
-        #myTable th
-        {
-            font-size:1.2em;
-            text-align: left;
-            padding:10px;
-            background-color:rgb(0,255,0);
-            color:rgb(255,255,255);
-        }
-        #myTable td
-        {
-            color:black;
-            background-color: rgb(255,218,185);
-        }
-        #bookTitle{
-            text-align: center;
-        }
-    </style>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <table id="myTable">
+<body background="https://ss3.bdstatic.com/lPoZeXSm1A5BphGlnYG/skin/66.jpg">
+<div class="container">
+    <h2>TodoList</h2>
+    <a class="btn btn-primary float-right" href="./addPerson.html" th:href="@{/addPerson/addList}">Add</a>
+    <table class="table">
+        <thead>
         <tr>
-            <br>
-            <h1 id="bookTitle">个人通讯录</h1>
-            <br>
-            <a href="./addPerson.html" th:href="@{/addPerson/list}" style="left:550px ">添加</a>
-            <a href="./addPerson.html" th:href="@{/addPerson/edit}" style="left:800px">编辑</a>
-            <a href="./addPerson.html" th:href="@{/addPerson/delete}" style="left:1050px">删除</a>
-            <br>
             <th>姓名</th>
             <th>联系方式</th>
+            <th>操作</th>
         </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
         <tr th:each="person:${people}" >
             <td th:text="${person.name}">Mr.A</td>
            <td th:text="${person.email}">hehe@qq.com</td>
+            <td>
+                <a type="button" class="btn  btn-xs btn-success" href="./myAddressBook.html"
+                   th:href="@{/addPerson/edit(id=${personStat.index})}">编辑</a>
+                <a type="button" class="btn  btn-xs btn-danger" href="./myAddressBook.html"
+                   th:href="@{/addPerson/delete(id=${personStat.index})}">删除</a>
+            </td>
         </tr>
         <tr>
-            <td>test.A</td>
-            <td>010-15413245</td>
+            <td>2</td>
+            <td></td>
+            <td>
+                <a type="button" class="btn  btn-xs btn-success" href="./myAddressBook.html">编辑</a>
+                <a type="button" class="btn  btn-xs btn-danger" href="./myAddressBook.html">删除</a>
+            </td>
         </tr>
-        <tr>
-            <td>test.B</td>
-            <td>10086</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
+        </tbody>
     </table>
+</div>
+
 </body>
 </html>

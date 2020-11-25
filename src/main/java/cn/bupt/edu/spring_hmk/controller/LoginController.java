@@ -13,12 +13,12 @@ import javax.servlet.http.HttpSession;
 public class LoginController
 {
     @PostMapping("/login")
-    public String login(String Username, String Password,
-                        HttpServletResponse response, HttpServletRequest request)throws Exception
+    public String login(String Username, String Password, HttpServletRequest request)throws Exception
     {
         System.out.println(Username+"    "+Password);
         HttpSession session=request.getSession();
         session.setAttribute("login",false);
+        session.setAttribute("whichEdit",-1);//AddPersonController用
         if(Username.equals("admin")&&Password.equals("123456"))
         {
             session.setAttribute("login",true);

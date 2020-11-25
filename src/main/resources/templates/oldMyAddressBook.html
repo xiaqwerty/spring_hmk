@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MY通讯录</title>
+    <script src="/js/myJS.js"></script>
+    <style>
+        body
+        {
+            font-family:"华文细黑";
+            background:url("https://ss3.bdstatic.com/lPoZeXSm1A5BphGlnYG/skin/66.jpg") no-repeat;
+            background-size: 100%;
+        }
+        input
+        {
+            position:absolute;
+            padding-left:100px;
+            padding-right:100px;
+            background-color:rgb(30, 144, 255);
+        }
+        a
+        {
+            position:absolute;
+            padding-left:100px;
+            padding-right:100px;
+            background-color:rgb(30, 144, 255);
+        }
+        #myTable
+        {
+            border-collapse: collapse;
+            width:80%;
+            margin:10px auto;
+        }
+
+        #myTable td,#myTable th
+        {
+            font-size:1em;
+            width:50%;
+            border: 1px solid black;
+            padding:10px;
+        }
+        #myTable th
+        {
+            font-size:1.2em;
+            text-align: left;
+            padding:10px;
+            background-color:rgb(0,255,0);
+            color:rgb(255,255,255);
+        }
+        #myTable td
+        {
+            color:black;
+            background-color: rgb(255,218,185);
+        }
+        #bookTitle{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<table id="myTable">
+    <tr>
+        <br>
+        <h1 id="bookTitle">个人通讯录</h1>
+        <br>
+        <a href="./addPerson.html" th:href="@{/addPerson/addList}" style="left:550px ">添加</a>
+        <a href="./addPerson.html" th:href="@{/addPerson/edit}" style="left:800px">编辑</a>
+        <a href="./addPerson.html" th:href="@{/addPerson/delete(PersonID=${personStat.index})}" style="left:1050px">删除</a>
+        <br>
+        <th>姓名</th>
+        <th>联系方式</th>
+    </tr>
+    <tr th:each="person:${people}" >
+        <td th:text="${person.name}">Mr.A</td>
+        <td th:text="${person.email}">hehe@qq.com</td>
+        <a href="./addPerson.html" th:href="@{/addPerson/delete(PersonID=(${personStat.index}-1))}" >删除</a>
+    </tr>
+    <tr>
+        <td>test.A</td>
+        <td>010-15413245</td>
+    </tr>
+    <tr>
+        <td>test.B</td>
+        <td>10086</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

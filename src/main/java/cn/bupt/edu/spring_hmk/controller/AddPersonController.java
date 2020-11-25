@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/addPerson")
-@SessionAttributes("people")
+@SessionAttributes(value = {"people","whichEdit"})
 public class AddPersonController
 {
     @GetMapping("/addList")
@@ -28,8 +28,8 @@ public class AddPersonController
     }
 
     @PostMapping("/add")
-    public String addPerson(Model model,@SessionAttribute List<Person> people,
-                            String name, String phoneNumber, String email, String address, String QQ, HttpServletResponse res)
+    public String addPerson(Model model,@SessionAttribute List<Person> people,@SessionAttribute int whichEdit,
+                            String name, String phoneNumber, String email, String address, String QQ)
     {
         model.addAttribute("people",people);
         if(!isEmail(email))
@@ -38,11 +38,38 @@ public class AddPersonController
         }
         else
         {
-            Person person=new Person(name, phoneNumber, email, address, QQ);
-            people.add(person);
-            model.addAttribute("people",people);
+            if(whichEdit==-1)//whichEdit=-1时添加元素
+            {
+                Person person=new Person(name, phoneNumber, email, address, QQ);
+                people.add(person);
+                model.addAttribute("people",people);
+            }
+            else
+            {
+                Person person=people.get(whichEdit);
+                person.setPerson(name, phoneNumber, email, address, QQ);
+                people.set(whichEdit,person);
+                whichEdit=-1;//edit完成后置于-1
+                model.addAttribute("people",people);
+                model.addAttribute("whichEdit",whichEdit);
+            }
             return "myAddressBook";
         }
+    }
+    @GetMapping("/edit")
+    public String editPerson(Model model,@SessionAttribute List<Person>people,@SessionAttribute int whichEdit,@RequestParam int id)
+    {
+        whichEdit=id;
+        model.addAttribute("whichEdit",whichEdit);
+        return "addPerson";
+    }
+    @GetMapping("/delete")
+    public String deletePerson(Model model,@SessionAttribute List<Person> people,@RequestParam int id)
+    {
+        System.out.println(id);
+        people.remove(id);
+        model.addAttribute("people",people);
+        return "myAddressBook";
     }
     private static boolean isEmail(String email)
     {

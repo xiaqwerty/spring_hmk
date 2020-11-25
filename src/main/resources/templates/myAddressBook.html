@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>MY通讯录</title>
@@ -12,6 +12,13 @@
             background-size: 100%;
         }
         input
+        {
+            position:absolute;
+            padding-left:100px;
+            padding-right:100px;
+            background-color:rgb(30, 144, 255);
+        }
+        a
         {
             position:absolute;
             padding-left:100px;
@@ -56,12 +63,16 @@
             <br>
             <h1 id="bookTitle">个人通讯录</h1>
             <br>
-            <input type="submit" value="添加" onclick="gotoAddPerson()" style="left:550px ">
-            <input type="submit" value="编辑" style="left:800px">
-            <input type="submit" value="删除" style="left:1050px">
+            <a href="./addPerson.html" th:href="@{/addPerson/list}" style="left:550px ">添加</a>
+            <a href="./addPerson.html" th:href="@{/addPerson/edit}" style="left:800px">编辑</a>
+            <a href="./addPerson.html" th:href="@{/addPerson/delete}" style="left:1050px">删除</a>
             <br>
             <th>姓名</th>
             <th>联系方式</th>
+        </tr>
+        <tr th:each="person:${people}" >
+            <td th:text="${person.name}">Mr.A</td>
+           <td th:text="${person.email}">hehe@qq.com</td>
         </tr>
         <tr>
             <td>test.A</td>

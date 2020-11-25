@@ -1,21 +1,38 @@
 package cn.bupt.edu.spring_hmk;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
+@RequestMapping("/addPerson")
 public class AddPersonController
 {
-    Person[] person=new Person[50];
     int i=0;
+    @RequestMapping("/list")
+    public String addPerson(Model model, @SessionAttribute(required = false) List<Person> people)
+    {
+        if (people == null)
+        {
+            people = new ArrayList<Person>();
+        }
+        model.addAttribute("people",people);
+        return "addPerson";
+    }
+
     @PostMapping("/add")
-    public String addPerson(String name,String phoneNumber,String email,String address,String QQ,HttpServletResponse res)
+    public String addPerson(Model model,@SessionAttribute List<Person> people,
+                            String name, String phoneNumber, String email, String address, String QQ, HttpServletResponse res)
     {
         if(!isEmail(email))
         {
@@ -37,8 +54,9 @@ public class AddPersonController
         }
         else
         {
-            person[i]=new Person(name, phoneNumber, email, address, QQ);
-            i++;
+            Person person=new Person(name, phoneNumber, email, address, QQ);
+            people.add(person);
+            model.addAttribute("people",people);
             return "redirect:/myAddressBook";
         }
     }
@@ -49,4 +67,5 @@ public class AddPersonController
         Matcher matcher= pattern.matcher(email);
         return matcher.matches();
     }
+
 }

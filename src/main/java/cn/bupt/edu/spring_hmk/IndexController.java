@@ -21,9 +21,4 @@ public class IndexController
     {
         return "myFrontPage";
     }
-    @RequestMapping("/addPerson")
-    public String addPerson()
-    {
-        return "addPerson";
-    }
 }

@@ -1,4 +1,4 @@
-package cn.bupt.edu.spring_hmk;
+package cn.bupt.edu.spring_hmk.entity;
 
 public class Person
 {

@@ -1,14 +1,11 @@
-package cn.bupt.edu.spring_hmk;
+package cn.bupt.edu.spring_hmk.controller;
 
+import cn.bupt.edu.spring_hmk.entity.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,10 +13,10 @@ import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/addPerson")
+@SessionAttributes("people")
 public class AddPersonController
 {
-    int i=0;
-    @RequestMapping("/list")
+    @GetMapping("/addList")
     public String addPerson(Model model, @SessionAttribute(required = false) List<Person> people)
     {
         if (people == null)
@@ -34,30 +31,17 @@ public class AddPersonController
     public String addPerson(Model model,@SessionAttribute List<Person> people,
                             String name, String phoneNumber, String email, String address, String QQ, HttpServletResponse res)
     {
+        model.addAttribute("people",people);
         if(!isEmail(email))
         {
-            res.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = null;
-            try
-            {
-                out = res.getWriter();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            out.flush();
-            out.println("<script>");
-            out.println("alert('邮箱格式错误！');");
-            out.println("history.back();");
-            out.println("</script>");
-            return "redirect:/addPerson";
+            return "emailError";
         }
         else
         {
             Person person=new Person(name, phoneNumber, email, address, QQ);
             people.add(person);
             model.addAttribute("people",people);
-            return "redirect:/myAddressBook";
+            return "myAddressBook";
         }
     }
     private static boolean isEmail(String email)

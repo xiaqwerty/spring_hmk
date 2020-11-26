@@ -9,14 +9,14 @@
 <body>
 <div id="box">
     <div id="title"><h1>添加联系人信息</h1></div>
-    <form id="add_box" method="post" action="/addPerson/add">
+    <form id="add_box" method="post" action="" name="myBox">
         <p>姓名：<input class="input_content" type="text" name="name" ></p>
         <p>电话：<input class="input_content" type="text" name="phoneNumber" ></p>
         <p>邮箱：<input class="input_content" id="email" type="text" name="email" ></p>
         <p>住址：<input class="input_content" type="text" name="address" ></p>
         <p>QQ：<input class="input_content" type="text" name="QQ" ></p>
-        <input type="submit" class="add_button" value="添加">
-        <button type="button" class="add_button" onclick="gotoMyAddressBook()">取消</button>
+        <button type="submit" class="add_button" onclick="Post()" >添加</button>
+        <button type="button" class="add_button" onclick="Cancel()">取消</button>
     </form>
 
 </div>

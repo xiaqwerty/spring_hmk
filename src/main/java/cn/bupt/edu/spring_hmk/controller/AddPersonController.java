@@ -24,6 +24,7 @@ public class AddPersonController
             people = new ArrayList<Person>();
         }
         model.addAttribute("people",people);
+        model.addAttribute("whichEdit",-1);//点击add时whichEdit置-1
         return "addPerson";
     }
 
@@ -31,30 +32,35 @@ public class AddPersonController
     public String addPerson(Model model,@SessionAttribute List<Person> people,@SessionAttribute int whichEdit,
                             String name, String phoneNumber, String email, String address, String QQ)
     {
-        model.addAttribute("people",people);
-        if(!isEmail(email))
+        model.addAttribute("people", people);
+        if (!isEmail(email))
         {
             return "emailError";
-        }
-        else
+        } else
         {
-            if(whichEdit==-1)//whichEdit=-1时添加元素
+            if (whichEdit == -1)//whichEdit=-1时添加元素 {
             {
-                Person person=new Person(name, phoneNumber, email, address, QQ);
+                Person person = new Person(name, phoneNumber, email, address, QQ);
                 people.add(person);
-                model.addAttribute("people",people);
+                model.addAttribute("people", people);
             }
-            else
+            else                    //bug--当编辑未完成取消时，whichEdit不会置-1
             {
-                Person person=people.get(whichEdit);
+                Person person = people.get(whichEdit);
                 person.setPerson(name, phoneNumber, email, address, QQ);
-                people.set(whichEdit,person);
-                whichEdit=-1;//edit完成后置于-1
-                model.addAttribute("people",people);
-                model.addAttribute("whichEdit",whichEdit);
+                people.set(whichEdit, person);
+                whichEdit = -1;//edit完成后置于-1
+                model.addAttribute("people", people);
+                model.addAttribute("whichEdit", whichEdit);
             }
             return "myAddressBook";
         }
+    }
+    @RequestMapping("/cancel")//点击取消的情况
+    public String cancelConfig(Model model,@SessionAttribute List<Person>people)
+    {
+        model.addAttribute("people", people);
+        return "myAddressBook";
     }
     @GetMapping("/edit")
     public String editPerson(Model model,@SessionAttribute List<Person>people,@SessionAttribute int whichEdit,@RequestParam int id)

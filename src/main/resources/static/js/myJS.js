@@ -16,3 +16,13 @@ function gotoAddPerson()
 {
     window.location.href="/addPerson";
 }
+function Post()
+{
+    document.myBox.action="/addPerson/add";
+    document.myBox.submit();
+}
+function Cancel()
+{
+    document.myBox.action="/addPerson/cancel";
+    document.myBox.submit();
+}

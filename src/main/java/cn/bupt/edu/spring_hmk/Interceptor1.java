@@ -26,7 +26,7 @@ public class Interceptor1 extends HandlerInterceptorAdapter
             System.out.println("检测到未登陆，正在跳转……");
             try
             {
-                response.sendRedirect(request.getContextPath()+"/");
+                response.sendRedirect(request.getContextPath()+"/myFrontPage");
             } catch (IOException e)
             {
                 e.printStackTrace();

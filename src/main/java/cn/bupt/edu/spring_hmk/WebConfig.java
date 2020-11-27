@@ -12,8 +12,8 @@ public class WebConfig implements WebMvcConfigurer
     @Override
     public void addInterceptors(InterceptorRegistry registry)
     {
-        registry.addInterceptor(new Interceptor1()).addPathPatterns("/myAddressBook","/addPerson","index");
-        //registry.addInterceptor(new Interceptor1()).addPathPatterns("/**").excludePathPatterns("/myFrontPage","/css/*","/js/*","/login","/myFrontPage.html");
+        //registry.addInterceptor(new Interceptor1()).addPathPatterns("/myAddressBook","/addPerson","index");
+        registry.addInterceptor(new Interceptor1()).addPathPatterns("/**").excludePathPatterns("/myFrontPage","/css/*","/js/*","/login","/myFrontPage.html");
     }
     /*@Override   //使用/resource/访问静态资源的方法
     public void addResourceHandlers(ResourceHandlerRegistry registry)

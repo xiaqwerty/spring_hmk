@@ -15,7 +15,7 @@ public class LoginController
     @PostMapping("/login")
     public String login(String Username, String Password, HttpServletRequest request)throws Exception
     {
-        System.out.println(Username+"    "+Password);
+        System.out.println("当前用户名："+Username+"    密码："+Password);
         HttpSession session=request.getSession();
         session.setAttribute("login",false);
         session.setAttribute("whichEdit",-1);//AddPersonController用
@@ -28,8 +28,8 @@ public class LoginController
         else
         {
             System.out.println("wrong login request detected");
-            System.out.println("Wrong user is: "+request.getParameter("user"));
-            System.out.println("Wrong password is: "+request.getParameter("password"));
+            System.out.println("Wrong user is: "+Username);
+            System.out.println("Wrong password is: "+Password);
             return "redirect:/myFrontPage";
         }
     }

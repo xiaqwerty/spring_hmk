@@ -11,7 +11,8 @@
     <div id="title"><h1>添加联系人信息</h1></div>
     <form id="add_box" method="post" action="" name="myBox">
         <p>姓名：<input class="input_content" type="text" name="name" ></p>
-        <p>电话：<input class="input_content" type="text" name="phoneNumber" ></p>
+        <p>电话：<input class="input_content" id="phoneNumber" type="text" name="phoneNumber" onkeyup="duplicatePhoneNumber(this.value)"></p>
+        <p><span id="hint" style="color:red"></span></p>
         <p>邮箱：<input class="input_content" id="email" type="text" name="email" ></p>
         <p>住址：<input class="input_content" type="text" name="address" ></p>
         <p>QQ：<input class="input_content" type="text" name="QQ" ></p>

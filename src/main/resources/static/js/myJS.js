@@ -26,3 +26,31 @@ function Cancel()
     document.myBox.action="/addPerson/cancel";
     document.myBox.submit();
 }
+function duplicatePhoneNumber(str)
+{
+    var xmlhttp;
+    if (str.length==0)
+    {
+        document.getElementById("hint").innerHTML="";
+        return;
+    }
+    if (window.XMLHttpRequest)
+    {
+        // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("hint").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","/addPerson/ifDuplicate?num="+str,true);
+    xmlhttp.send();
+}

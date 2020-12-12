@@ -23,4 +23,5 @@ public class IndexController
     }
     @RequestMapping("/addPersonList")
     public String addPersonList(){return "addPerson";}
+
 }

@@ -29,13 +29,18 @@
         </thead>
         <tbody th:remove="all-but-first">
         <tr th:each="person:${people}" >
-            <td th:text="${person.name}">Mr.A</td>
-           <td th:text="${person.email}">hehe@qq.com</td>
+            <td th:text="${person.getName()}">Mr.A</td>
+           <td th:text="${person.getPhoneNumber()}">+86 110119120</td>
             <td>
+                <!--th:href="@{/addPerson/edit(id=${personStat.index})}">编辑</a>
+                th:href="@{/addPerson/edit(id=${person.getID()})}"-->
                 <a type="button" class="btn  btn-xs btn-success" href="./myAddressBook.html"
-                   th:href="@{/addPerson/edit(id=${personStat.index})}">编辑</a>
+                   th:href="@{/addPerson/edit(id=${person.getId()})}">编辑</a>
+                <!--th:href="@{/addPerson/delete(id=${personStat.index})}">删除</a>
+                th:href="@{/addPerson/delete(id=${person.getID()})}"-->
                 <a type="button" class="btn  btn-xs btn-danger" href="./myAddressBook.html"
-                   th:href="@{/addPerson/delete(id=${personStat.index})}">删除</a>
+                   th:href="@{/addPerson/delete(id=${person.getId()})}">删除</a>
+
             </td>
         </tr>
         <tr>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sign1</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h2>验证界面</h2>
+        <form th:action="@{/sign1}" method="post">
+            <div>
+                <p th:text="${result}"></p>
+            </div>
+            <div class="inputBox">
+                <input name="email" id="email" type="email" placeholder="e-mail">
+            </div>
+            <input type="submit" id="verify" value="verify">
+        </form>
+    </div>
+</div>
+</body>
+</html>

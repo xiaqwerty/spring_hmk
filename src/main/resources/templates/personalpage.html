@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>personalpage</title>
+    <script>
+        function notice(personId) {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function(){
+                let info = xmlhttp.responseText.split(",");
+                document.getElementById("notice").innerHTML = info[0];
+                document.getElementById("notices").innerHTML = info[1];
+                document.getElementById("fans").innerHTML = info[2];
+            }
+            xmlhttp.open("POST","/notice?personId="+personId, true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+<div th:object="${person}">
+    <p>Name: <span th:text="*{name}"></span></p>
+    <p><a th:href="@{/friends(userId=*{userId},mention=1)}">粉丝： </a><span th:id="fans" th:text="*{fansNum}"></span></p>
+    <p><a th:href="@{/friends(userId=*{userId},mention=0)}">关注： </a> <span th:id="notices" th:text="*{noticeNum}"></span></p>
+    <p>文章: <span th:text="*{blogNum}"></span></p>
+    <div th:if="${session.userId}">
+        <div th:unless="${isMyself}">
+            <button type="button" th:value="*{userId}" id="notice" onclick="notice(this.value)" th:text="${result}"></button>
+        </div>
+    </div>
+    <br/>
+    <div th:each="blog:${list}">
+        <p th:text="'主题：'+${blog.getTitle()}" th:align="left"></p>
+        <p th:text="'   赞' + ${blog.getLikesNum()} +' 评论'+ ${blog.getCommitNum()} + ' 时间'+ ${blog.getPostTime()}" th:align="right">点赞</p>
+        <a th:href="@{/blog(blogId=${blog.getBlogId()})}">进入</a>
+        <br/>
+    </div>
+    <div>
+        <a th:href="@{/personalpage(personId=${personId},start=0, size=${size})}">[首页]</a>
+        <a th:if="${not list.isFirst()}" th:href="@{/personalpage(personId=${personId},start=${list.number-1}, size=${size})}">[上一页]</a>
+        <a th:if="${not list.isLast()}" th:href="@{/personalpage(personId=${personId}, start=${list.number+1}, size=${size})}">[下一页]</a>
+        <a th:href="@{/personalpage(personId=${personId},start=${list.totalPages-1}, size=${size})}">[尾页]</a>
+        <a th:href="@{/frontpage(sort=time,start=0,size=2)}">返回主页</a>
+    </div>
+</div>
+</body>
+</html>

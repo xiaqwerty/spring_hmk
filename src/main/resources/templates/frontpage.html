@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>frontpage</title>
+    <script>
+        function like(blogId,ifInit)
+        {
+
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("likesnum").innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","/likeBlog?blogId="+blogId+"&&"+"ifInit="+ifInit,true);
+            xmlhttp.send();
+        }
+        function likeCommit(commitId,ifInit)//有bug
+        {
+
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("commitlikesnum"+commitId).innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","/likeCommit?commitId="+commitId+"&&"+"ifInit="+ifInit,true);
+            xmlhttp.send();
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+<div th:align="center">
+    <a th:href="@{/frontpage(sort=time, start=0, size=${size})}">按时间排序</a>
+    <a th:href="@{/frontpage(sort=like, start=0, size=${size})}">点赞数排序</a>
+    <a th:href="@{/frontpage(sort=commit, start=0, size=${size})}">评论数排序</a>
+    <p th:text="${result}"></p>
+</div>
+
+<div th:each="blog:${list}">
+    <p th:text="'主题：'+${blog.title}" th:align="left"></p>
+    <p th:text="'   赞' + ${blog.getLikesNum()} +' 评论'+ ${blog.getCommitNum()} + ' 时间'+ ${blog.getPostTime()}" th:align="right">点赞</p>
+    <a th:href="@{/blog(blogId=${blog.getBlogId()})}">进入</a>
+    <br/>
+</div>
+<div>
+    <a th:href="@{/frontpage(sort=${sort}, start=0, size=${size})}">[首页]</a>
+    <a th:if="${not list.isFirst()}" th:href="@{/frontpage(sort=${sort}, start=${list.number-1}, size=${size})}">[上一页]</a>
+    <a th:if="${not list.isLast()}" th:href="@{/frontpage(sort=${sort}, start=${list.number+1}, size=${size})}">[下一页]</a>
+    <a th:href="@{/frontpage(sort=${sort}, start=${list.totalPages}, size=${size})}">[尾页]</a>
+</div>
+
+<div th:if="${iflog}">
+    <a th:href="@{/postblog}" th:align="center">发帖</a>
+</div>
+<a th:href="@{/logout}" th:align="center">切换用户/登录</a>
+
+</body>
+</html>

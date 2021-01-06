@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sign2</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h2>注册界面</h2>
+        <form th:action="@{sign2}" method="post">
+            <div>
+                <p th:text="${result}"></p>
+            </div>
+            <div>
+                <p th:text="${email}"></p>
+            </div>
+            <div>
+                <input name="checkCode" id="checkCode" type="text" placeholder="verfication code" th:value="${check}">
+            </div>
+            <div>
+                <input name="name" id="name" type="text" placeholder="name" th:value="${name}">
+            </div>
+            <div>
+                <input name="password1" id="password1" type="password" placeholder="password">
+            </div>
+            <div>
+                <input name="password2" id="password2" type="password" placeholder="password again">
+            </div>
+            <input type="submit" id="sign up" value="sign up">
+        </form>
+    </div>
+</div>
+</body>
+</html>

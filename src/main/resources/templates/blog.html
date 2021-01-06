@@ -1,0 +1,572 @@
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"><head>
+    <title>HelloWeiBo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <style type="text/css">
+        div,span,p,ul,ol,li,img{padding: 0;margin: 0;box-sizing: border-box;}
+        ul,ol{list-style: none;}
+        body{
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            background-color: #e1e6eb;
+            color: #28323c;
+            font: 12px/1.5 Arial, 'Droid Sans', 'Hiragino Sans GB', 'Microsoft YaHei';
+
+        }
+        .fix-border-top,.fix-border-bottom{position: relative;}
+        .fix-border-top:after{content: "";position: absolute;top: 0;left: 0;right: 0;border-bottom: 1px solid #e1e6eb;-webkit-transform:scaleY(.5);-webkit-transform-origin:0 0;transform:scaleY(.5);transform-origin:0 0;}
+        .fix-border-bottom:after{content: "";position: absolute;bottom: 0;left: 0;right: 0;border-bottom: 1px solid #e1e6eb;-webkit-transform:scaleY(.5);-webkit-transform-origin:0 100%;transform:scaleY(.5);transform-origin:0 100%;}
+
+        .maxjia-pc-header {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            z-index: 1;
+            width: 600px;
+            margin-left: -300px;
+            height: 60px;
+            background: rgba(255,255,255,.9);
+            padding: 10px 10px 10px 60px;
+            box-shadow: 0 0 5px rgba(0,0,0,.15);
+        }
+        .maxjia-pc-header .app_logo {
+            float: left;
+            margin-left: -50px;
+        }
+        .maxjia-pc-header .app_logo img {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        .maxjia-pc-header .app_name {
+            font-size: 18px;
+            font-weight: normal;
+            color: #131d28;
+            line-height: 24px;
+        }
+        .maxjia-pc-header .app_des {
+            font-size: 12px;
+            color: #929292;
+        }
+        .maxjia-pc-header .btn {
+            position: absolute;
+            top: 14px;
+            width: 120px;
+            height: 34px;
+            line-height: 32px;
+            text-align: center;
+            font-size: 12px;
+            color: #131d28;
+            border-radius: 4px;
+            border: 1px solid #131d28;
+            cursor: pointer;
+        }
+        .maxjia-pc-header .btn.android{
+            right: 10px;
+        }
+        .maxjia-pc-header .btn.ios{
+            right: 140px;
+        }
+        .maxjia-pc-header .btn i{
+            font-size: 14px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .maxjia-pc-header .btn span{
+            vertical-align: middle;
+        }
+        .maxjia-mobile-header {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: 60px;
+            background: rgb(255,255,255);
+            padding: 10px 10px 10px 60px;
+            box-shadow: 0 0 5px rgba(0,0,0,.15);
+        }
+        .maxjia-mobile-header .app_logo {
+            float: left;
+            margin-left: -50px;
+        }
+        .maxjia-mobile-header .app_logo img {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        .maxjia-mobile-header .app_name {
+            font-size: 18px;
+            font-weight: normal;
+            color: #131d28;
+            line-height: 24px;
+        }
+        .maxjia-mobile-header .app_des {
+            font-size: 12px;
+            color: #929292;
+        }
+        .maxjia-mobile-header .download_btn {
+            position: absolute;
+            right: 10px;
+            top: 17px;
+            width: 60px;
+            height: 28px;
+            line-height: 26px;
+            text-align: center;
+            font-size: 12px;
+            color: #131d28;
+            border-radius: 4px;
+            border: 1px solid #131d28;
+        }
+
+        .maxjia-mobile-header-2 {
+            padding-top: 10px;
+        }
+
+        .maxjia-mobile-header-2 a {
+            display: block;
+            line-height: 40px;
+            border-radius: 4px;
+            color: #444444;
+            text-align: center;
+            background: #e1e6ec;
+            cursor: pointer;
+        }
+        .container{
+            position: relative;
+            max-width: 600px;
+            min-width: 300px;
+            margin: auto;
+            padding-bottom: 60px;
+        }
+        .post-wrap{
+            background: #fff;
+        }
+        .post-wrap .title{
+            font-size: 20px;
+            color: #28323c;
+            font-weight: bold;
+            line-height: 30px;
+            padding: 0 15px;
+        }
+        .user-wrap{
+            display: -webkit-box;
+            padding: 10px 0;
+        }
+        .user-wrap > .col-1{
+            width: 59px;
+            padding: 0 10px 0 15px;
+        }
+        .user-wrap > .col-1 .avatar{
+            display: block;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+        }
+        .user-wrap > .col-2{
+            -webkit-box-flex: 1;
+        }
+        .user-wrap > .col-2 > .row-1{
+            display: -webkit-box;
+            padding-right: 15px;
+        }
+        .user-wrap > .col-2 > .row-1 > .col-1{
+            -webkit-box-flex: 1;
+            line-height: 17px;
+        }
+        .user-wrap > .col-2 > .row-1 > .col-1 > .row-1{font-size: 0}
+        .user-wrap > .col-2 > .row-1 > .col-1 > .row-1 span{vertical-align: middle}
+        .user-wrap .name{
+            font-size: 13px;
+            color: #5f9be1;
+        }
+        .user-wrap .level,
+        .user-wrap .user-type{
+            display: inline-block;
+            width: 23px;
+            height: 11px;
+            line-height: 11px;
+            text-align: center;
+            font-size: 9px;
+            color: #fff;
+            border-radius: 2px;
+            margin-left: 3px;
+        }
+        .user-wrap .level{background: #ffc107;}
+        .user-wrap .level.lvl-1,.user-wrap .level.lvl-2,.user-wrap .level.lvl-3,.user-wrap .level.lvl-4,.user-wrap .level.lvl-5{background: #4fc3f7;}
+        .user-wrap .level.lvl-6,.user-wrap .level.lvl-7,.user-wrap .level.lvl-8,.user-wrap .level.lvl-9,.user-wrap .level.lvl-10{background: #3bc995;}
+        .user-wrap .user-type.owner{background: rgb(135, 173, 218);}
+        .user-wrap .user-type.manager{background: #3BC995;}
+        .user-wrap .user-type.offical{background: rgb(216, 67, 21);}
+        .user-wrap .time{font-size: 10px;color: #8c96a0;}
+        .user-wrap > .col-2 > .row-1 > .col-2{
+            width: 50px;
+            text-align: right;
+            padding-right: 17px;
+            line-height: 34px;
+            font-size: 10px;
+            color: #8c96a0;
+            background: url(//cdn.max-c.com/image/share/bbs/like_2.png) no-repeat right center;
+            background-size: 14px 13px;
+        }
+        .user-wrap > .col-2 > .row-2{
+            padding: 6px 0;
+            line-height: 20px;
+            font-size: 13px;
+            color: #28323c;
+            /*text-align: justify;*/
+            word-wrap: break-word;
+            padding-right: 15px;
+        }
+        .user-wrap > .col-2 > .row-2 img{
+            display: block;
+            max-width: 100%;
+        }
+        .post-wrap .content{
+            padding: 10px 12px 5px;
+            line-height: 25px;
+            font-size: 16px;
+            color: #28323c;
+            /*text-align: justify;*/
+            word-wrap: break-word;
+        }
+        .post-wrap .content p{
+            white-space: pre-line;
+        }
+        .post-wrap .content img{
+            display: block;
+            max-width: 100%;
+            margin: 15px 0;
+        }
+        .post-wrap .content a {
+            color: #5f9be1;
+        }
+        .post-wrap .likes-wrap{
+            display: -webkit-box;
+            padding: 15px 12px;
+            font-size: 0;
+        }
+        .post-wrap .likes-wrap .col-1{
+            -webkit-box-flex: 1;
+            height: 22px;
+            overflow: hidden;
+        }
+        .post-wrap .likes-wrap .col-1 .avartar{
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            margin-right: 5px;
+        }
+        .post-wrap .likes-wrap .col-2{
+            width: 80px;
+            text-align: right;
+        }
+        .post-wrap .likes-wrap .col-2 img{
+            width: 14px;
+            height: 13px;
+            vertical-align: middle;
+        }
+        .post-wrap .likes-wrap .col-2 .count{
+            font-size: 14px;
+            color: #28323c;
+            margin-left: 7px;
+            vertical-align: middle;
+        }
+        .floor-wrap{
+            position: relative;
+            background: #fff;
+            margin-top: 10px;
+        }
+        .floor-wrap .user-wrap{
+            padding: 6px 0;
+        }
+
+        video{width:100%;}
+        object{width:100%;}
+
+        @media (max-width: 480px) {
+            .maxjia-pc-header {
+                display: none;
+            }
+            .maxjia-mobile-header {
+                display: block;
+            }
+            body {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+        .no-topp {
+            padding-top: 0;
+        }
+        /*loading start */
+        .loading {
+            position: fixed;
+            background: rgb(225,230,235);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+        }
+        .loading .loading-circle,
+        .lazy-loading .loading-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 60px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-top-color: rgba(0, 0, 0, 0.6);
+            border-radius: 100%;
+            margin: auto;
+        }
+        .fa-spin-round {
+            -webkit-animation: fa-spin-round 0.9s infinite linear;
+            animation: fa-spin-round 0.9s infinite linear;
+        }
+        @-webkit-keyframes fa-spin-round {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes fa-spin-round {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .lazy-loading {
+            position: absolute;
+            background: rgb(225,230,235);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 60px;
+            height: 120px;
+            /*z-index: 999;*/
+        }
+        .m-loading {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+        }
+        /*loading  end*/
+        .end-comments {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            height: 60px;
+            width: 100%;
+            text-align: center;
+            background-color: rgb(225,230,235);
+        }
+        .end-comments img {
+            margin-top: 20px;
+            height: 20px;
+        }
+        .user-wrap:last-child .fix-border-bottom:after{
+            background-color: red;
+            content: none;
+            border-bottom: none;
+        }
+
+    </style>
+    <script>
+        function like(blogId,ifInit)
+        {
+
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("likesnum").innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","/likeBlog?blogId="+blogId+"&&"+"ifInit="+ifInit,true);
+            xmlhttp.send();
+        }
+        function likeCommit(commitId,ifInit)//有bug
+        {
+
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("commitlikesnum"+commitId).innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","/likeCommit?commitId="+commitId+"&&"+"ifInit="+ifInit,true);
+            xmlhttp.send();
+        }
+
+
+
+    </script>
+</head>
+<body style="">
+<div id="content-box"><div class="container">
+    <div class="post-wrap">
+        <div class="user-wrap">
+            <div class="col-1">
+                <img src="http://cdn.maxjia.com/avatar/625c455ea9d4cfb70434a21a51ed035d" class="avatar" >
+            </div>
+            <div class="col-2">
+                <div class="row-1">
+                    <div class="col-1">
+                        <div class="row-1">
+                            <a class="name" th:text="'用户no'+${blog.getUserId()}" th:href="@{/personalpage(personId=${blog.getUserId()},start=0,size=2)}">博主</a>
+                            <span class="level lvl-10">Lv.10</span>
+                            <span class="host">博主</span>
+                        </div>
+                        <div class="row-2">
+                            <span class="time" th:text="${blog.getPostTime()}">error time</span>
+                        </div>
+                    </div>
+                    <div class="col-2" style="visibility: hidden"></div>
+                </div>
+            </div>
+        </div>
+        <div class="title" th:text="${blog.getTitle()}">这是一条微博</div>
+        <div class="content" >
+
+            <p th:text="${blog.getContent()}">这是一条微博</p>
+            <div th:unless="${blog.getPic1().equals('')}">
+            <img th:src="'/'+${blog.getPic1()}">
+            </div>
+            <div th:unless="${blog.getPic2().equals('')}">
+                <img th:src="'/'+${blog.getPic2()}">
+            </div>
+            <div th:unless="${blog.getPic3().equals('')}">
+                <img th:src="'/'+${blog.getPic3()}">
+            </div>
+            <div th:unless="${blog.getPic4().equals('')}">
+                <img th:src="'/'+${blog.getPic4()}">
+            </div>
+            <div th:unless="${blog.getPic5().equals('')}">
+                <img th:src="'/'+${blog.getPic5()}">
+            </div>
+            <div th:unless="${blog.getPic6().equals('')}">
+                <img th:src="'/'+${blog.getPic6()}">
+            </div>
+        </div>
+        <div class="likes-wrap">
+            <script type="text/javascript" th:unless="${session.userId==null}">like([[${blog.getBlogId()}]],true)</script>
+            <div class="col col-2" th:value="*{blog.getBlogId()}" style="CURSOR:pointer" th:unless="${session.userId==null}" th:onclick="like([[${blog.getBlogId()}]],false)">
+                <img src="//cdn.max-c.com/image/share/bbs/like_2.png">
+                <span class="count" id="likesnum"></span>
+            </div>
+        </div>
+        <a th:href="@{/postCommit(blogId=${blog.getBlogId()})}" th:align="center">发表评论</a>
+        <a th:href="@{/frontpage(sort=time,start=0,size=2)}">返回主页</a>
+
+        <!--评论区-->
+        <div class="floor-wrap">
+            <div class="user-wrap" th:each="commit:${commits}" >
+                <div class="col-1">
+                    <img src="http://cdn.maxjia.com/avatar/625c455ea9d4cfb70434a21a51ed035d" class="avatar">
+                </div>
+                <div th:if="${commit.getReplyId()}==-1">
+                <div class="col-2">
+                    <div class="row-1">
+                        <div class="col-1">
+                            <div class="row-1">
+                                <a class="name" th:text="'用户no'+${commit.getUserId()}" th:href="@{/personalpage(personId=${commit.getUserId()},start=0,size=2)}">阿拉阿拉阿拉发生了什么</a>
+                                <span class="level lvl-10">Lv.10</span>
+                                <span class="user-type owner" th:if="${commit.getUserId()==blog.getUserId()}">博主</span>
+                            </div>
+                            <div class="row-2">
+                                <span class="time" th:text="${commit.getTime()}">error time</span>
+                            </div>
+                        </div>
+                        <div class="likes-wrap">
+                            <script type="text/javascript" th:unless="${session.userId==null}">likeCommit([[${commit.getCommitId()}]],true)</script>
+                            <div class="col col-2" th:value="*{commit.getCommitId()}" th:unless="${session.userId==null}" style="CURSOR:pointer" th:onclick="likeCommit([[${commit.getCommitId()}]],false)">
+                                <img src="//cdn.max-c.com/image/share/bbs/like_2.png">
+                                <span class="count" th:id="'commitlikesnum'+${commit.getCommitId()}" ></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-2 fix-border-bottom ">
+                        <p th:text="${commit.getContent()}"></p>
+                    </div>
+                    <a th:href="@{/postCommit(blogId=${blog.getBlogId()},replyId=${commit.getCommitId()})}" th:align="center">回复他：</a>
+                </div>
+                </div>
+
+                <div th:if="${commit.getReplyId()}!=-1">
+                    <div class="col-2">
+                        <div class="row-1">
+                            <div class="col-1">
+                                <div class="row-1">
+                                    <a class="name" th:text="'用户no'+${commit.getUserId()}" th:href="@{/personalpage(personId=${commit.getUserId()},start=0,size=2)}">阿拉阿拉阿拉发生了什么</a>
+                                    <span class="level lvl-10">Lv.10</span>
+                                    <span class="user-type owner" th:if="${commit.getUserId()==user.getUserId()}">博主</span>
+                                </div>
+                                <div class="row-2">
+                                    <span class="time" th:text="${commit.getTime()}">error time</span>
+                                </div>
+                            </div>
+                            <div class="likes-wrap">
+                                <script type="text/javascript" th:unless="${session.userId==null}">likeCommit([[${commit.getCommitId()}]],true)</script>
+                                <div class="col col-2" th:value="*{commit.getCommitId()}" th:unless="${session.userId==null}" style="CURSOR:pointer" th:onclick="likeCommit([[${commit.getCommitId()}]],false)">
+                                    <img src="//cdn.max-c.com/image/share/bbs/like_2.png">
+                                    <span class="count" th:id="'commitlikesnum'+${commit.getCommitId()}" ></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row-2 fix-border-bottom ">
+                            <p th:text="'回复     '+${commits.get(replyMap.get(commit.getReplyId())).getContent()}+'         '"></p>
+                            <p th:text="${commit.getContent()}"></p>
+                        </div>
+                        <a th:href="@{/postCommit(blogId=${blog.getBlogId()},replyId=${commit.getCommitId()})}" th:align="center">回复他：</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>

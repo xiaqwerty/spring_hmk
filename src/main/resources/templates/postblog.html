@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post blog</title>
+    <script>
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjcectURL !== undefined) {
+                url = window.createOjcectURL(file);
+            } else if (window.URL !== undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL !== undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+        function f1() {
+            var file = document.getElementById("pic1").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p1").src=objURL;
+                document.getElementById("p1").style.height='100px';
+                document.getElementById("p1").style.width='100px';
+            }
+        }
+        function f2() {
+            var file = document.getElementById("pic2").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p2").src=objURL;
+                document.getElementById("p2").style.height='100px';
+                document.getElementById("p2").style.width='100px';
+            }
+        }
+        function f3() {
+            var file = document.getElementById("pic3").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p3").src=objURL;
+                document.getElementById("p3").style.height='100px';
+                document.getElementById("p3").style.width='100px';
+            }
+        }
+        function f4() {
+            var file = document.getElementById("pic4").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p4").src=objURL;
+                document.getElementById("p4").style.height='100px';
+                document.getElementById("p4").style.width='100px';
+            }
+        }
+        function f5() {
+            var file = document.getElementById("pic5").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p5").src=objURL;
+                document.getElementById("p5").style.height='100px';
+                document.getElementById("p5").style.width='100px';
+            }
+        }
+        function f6() {
+            var file = document.getElementById("pic6").files[0];
+            var objURL = getObjectURL(file);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadstart = function () {
+                document.getElementById("p6").src=objURL;
+                document.getElementById("p6").style.height='100px';
+                document.getElementById("p6").style.width='100px';
+            }
+        }
+    </script>
+</head>
+<body>
+    <form th:action="@{/postblog}" method="post" align="center" enctype="multipart/form-data">
+        <div>
+            <p th:text="${result}"></p>
+        </div>
+        <div>
+            <textarea name="title" id="title" cols="30" rows="3" placeholder="title"></textarea>
+        </div>
+        <div>
+            <textarea name="content" id="content" cols="30" rows="30" placeholder="content"></textarea>
+        </div>
+        <div>
+            <img id="p1" >
+            <input type="file" id="pic1" name="pic1" onchange="f1()">
+        </div>
+        <div>
+            <img id="p2" >
+            <input type="file" id="pic2" name="pic2" onchange="f2()">
+        </div>
+        <div>
+            <img id="p3" >
+            <input type="file" id="pic3" name="pic3" onchange="f3()">
+        </div>
+        <div>
+            <img id="p4">
+            <input type="file" id="pic4" name="pic4" onchange="f4()">
+        </div>
+        <div>
+            <img id="p5" >
+            <input type="file" id="pic5" name="pic5" onchange="f5()">
+        </div>
+        <div>
+            <img id="p6" >
+            <input type="file" id="pic6" name="pic6" onchange="f6()">
+        </div>
+        <input type="submit" id="post" value="post it">
+
+<!--        <p>-->
+<!--            <a th:href="@{/friends}" href="friendspage.html">@friend</a>-->
+<!--        </p>-->
+    </form>
+</body>
+</html>
